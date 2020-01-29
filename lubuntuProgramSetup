@@ -10,7 +10,7 @@ mkdir Projects
 add-apt-repository ppa:ondrej/nginx
 apt-get update
 #then update the availible package list and install the programs
-apt install apt-transport-https curl  flatpak compton feh i3 i3-wm i3blocks i3lock i3lock-fancy i3status xfce4-screenshooter  mednafen mednaffe php7.2  php7.1 git synaptic -y
+apt install apt-transport-https curl  flatpak compton feh i3 i3-wm i3blocks i3lock i3lock-fancy i3status xfce4-screenshooter  mednafen mednaffe php7.2  php7.1 git synaptic keepassxc  -y
 
 
 #uncomment to install-------------------------------------------------------------------------
