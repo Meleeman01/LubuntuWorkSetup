@@ -1,0 +1,112 @@
+#!/bin/bash
+# a script to download all the necessary programs i need to work
+COMMAND_1
+SOURCEDIR=/home/meleeman
+cd $SOURCEDIR
+mkdir WebWork
+mkdir Projects
+
+#first we'll add our repositories we need
+add-apt-repository ppa:ondrej/nginx
+apt-get update
+#then update the availible package list and install the programs
+apt install apt-transport-https curl  flatpak compton feh i3 i3-wm i3blocks i3lock i3lock-fancy i3status xfce4-screenshooter  mednafen mednaffe php7.2  php7.1 git synaptic -y
+
+
+#uncomment to install-------------------------------------------------------------------------
+
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add - |  apt-get install apt-transport-https | 
+echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list 
+apt-get update 
+apt-get install sublime-text -y
+
+
+
+#https://www.sublimemerge.com/docs/linux_repositories#apt try this if lighter
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+apt-get update
+apt-get install sublime-merge -y
+
+#----------------------------------------------------------------------------------------------
+
+
+#install Flatpak packages
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub org.freedesktop.Platform/x86_64/18.08
+flatpak install flathub org.gnome.Platform/x86_64/3.28
+flatpak install flathub org.gimp.GIMP 
+ 
+
+#install Development Enviornment
+
+#https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-ubuntu-18-04
+#https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-debian-9#step-4-%E2%80%94-including-the-autoload-script
+#use these links to help set up dev instances
+apt-get install php php-fpm php-mysql php-sqlite3 php-xml php-zip -y
+apt-get install nginx -y
+apt-get install mysql-server-5.7 -y
+#---uncomment this line to install properly according to digital ocean
+#mysql_secure_installation
+
+#node
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+command -v nvm
+nvm install --lts=erbium 
+nvm install --lts=dubnium
+#composer
+
+
+EXPECTED_SIGNATURE="$(wget -q -O - https://composer.github.io/installer.sig)"
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+ACTUAL_SIGNATURE="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+
+if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]
+then
+    >&2 echo 'ERROR: Invalid installer signature'
+    rm composer-setup.php
+    exit 1
+fi
+
+php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+RESULT=$?
+rm composer-setup.php
+chown -R $USER .composer/
+echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+echo $RESULT
+
+
+#elasticsearch
+apt install default-jre -y
+echo $JAVA_HOME
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+add-apt-repository "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
+apt-get update
+apt-get install elasticsearch
+
+#clone github remotes back onto my local machine
+cd Projects
+git clone https://github.com/ResignationMedia/chive-charities-v2.git
+cd ../WebWork
+git clone https://github.com/ResignationMedia/screaming-eagle.git
+git clone https://github.com/Meleeman01/prototyping.git
+git clone https://github.com/kelsh/shoppo.git
+git clone https://github.com/Meleeman01/ChihoCMS.git
+git clone https://github.com/wetfish/sync.git
+
+echo \n\n'\n\n Now all you have to do is set up mysql_secure_installation and nginx!!!'
+
+
+
+php -v
+node -v
+npm -v
+COMMAND_LAST
+
+
+exit
+
+
