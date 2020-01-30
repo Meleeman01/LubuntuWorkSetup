@@ -7,10 +7,10 @@ mkdir WebWork
 mkdir Projects
 
 #first we'll add our repositories we need
-add-apt-repository ppa:ondrej/nginx
+add-apt-repository ppa:ondrej/php 
 apt-get update
 #then update the availible package list and install the programs
-apt install apt-transport-https curl  flatpak compton feh i3 i3-wm i3blocks i3lock i3lock-fancy i3status xfce4-screenshooter  mednafen mednaffe php7.2  php7.1 git synaptic keepassxc  -y
+apt install apt-transport-https curl build-essential flatpak compton feh i3 i3-wm i3blocks i3lock i3lock-fancy i3status xfce4-screenshooter  mednafen mednaffe php7.2  php7.1 git synaptic keepassxc  -y
 
 
 #uncomment to install-------------------------------------------------------------------------
@@ -43,11 +43,11 @@ flatpak install flathub org.gimp.GIMP
 #https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-ubuntu-18-04
 #https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-debian-9#step-4-%E2%80%94-including-the-autoload-script
 #use these links to help set up dev instances
-apt-get install php php-fpm php-mysql php-sqlite3 php-xml php-zip -y
+apt-get install php7.1 php7.2 php7.0 php7.0-fpm php7.1-fpm php7.2-fpm php7.2-mysql php7.0-mysql php7.1-mysql php-7.2-mysql php-sqlite3 php-xml php-zip  -y
 apt-get install nginx -y
-apt-get install mysql-server-5.7 -y
+apt-get install mysql-server-5.7 mysql-workbench -y
 #---uncomment this line to install properly according to digital ocean
-#mysql_secure_installation
+mysql_secure_installation
 
 #node
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
@@ -67,7 +67,7 @@ if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]
 then
     >&2 echo 'ERROR: Invalid installer signature'
     rm composer-setup.php
-    exit 1
+    echo 1
 fi
 
 php composer-setup.php --install-dir=/usr/local/bin --filename=composer
@@ -96,6 +96,10 @@ git clone https://github.com/Meleeman01/prototyping.git
 git clone https://github.com/kelsh/shoppo.git
 git clone https://github.com/Meleeman01/ChihoCMS.git
 git clone https://github.com/wetfish/sync.git
+
+cd $SOURCEDIR
+chown -R meleeman WebWork
+chown -R meleeman Projects 
 
 echo \n\n'\n\n Now all you have to do is set up mysql_secure_installation and nginx!!!'
 
