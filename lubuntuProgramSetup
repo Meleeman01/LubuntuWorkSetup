@@ -43,17 +43,18 @@ flatpak install flathub org.gimp.GIMP
 #https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-ubuntu-18-04
 #https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-debian-9#step-4-%E2%80%94-including-the-autoload-script
 #use these links to help set up dev instances
-apt-get install php7.1 php7.2 php7.0 php7.0-fpm php7.1-fpm php7.2-fpm php7.1-curl php7.2-mysql php7.0-mysql php7.1-mysql php-7.2-mysql php-sqlite3 php-xml php-zip  -y
+apt-get install php7.1 php7.2 php7.0 php7.0-fpm php7.1-fpm php7.2-fpm php7.1-curl php7.2-mysql php7.0-mysql php7.1-mysql php-7.2-mysql php-sqlite3 php7.1-xml php7.1-zip  -y
 apt-get install nginx -y
 apt-get install mysql-server-5.7 mysql-workbench -y
 #---uncomment this line to install properly according to digital ocean
-mysql_secure_installation
+#mysql_secure_installation
 
 #node
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 command -v nvm
+nvm install --lts=carbon
 nvm install --lts=erbium 
 nvm install --lts=dubnium
 #composer
@@ -82,8 +83,9 @@ echo $RESULT
 #elasticsearch
 apt install default-jre -y
 echo $JAVA_HOME
+
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-add-apt-repository "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
+echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
 apt-get update
 apt-get install elasticsearch
 
@@ -98,9 +100,9 @@ git clone https://github.com/Meleeman01/ChihoCMS.git
 git clone https://github.com/wetfish/sync.git
 
 cd $SOURCEDIR
-chown -R meleeman WebWork
-chown -R meleeman Projects 
-
+chown -R meleeman:meleeman WebWork
+chown -R meleeman:meleeman Projects 
+chown -R meleeman:meleeman .nvm
 echo \n\n'\n\n Now all you have to do is set up mysql_secure_installation and nginx!!!'
 
 
