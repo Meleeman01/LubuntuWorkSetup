@@ -43,7 +43,7 @@ flatpak install flathub org.gimp.GIMP
 #https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-ubuntu-18-04
 #https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-debian-9#step-4-%E2%80%94-including-the-autoload-script
 #use these links to help set up dev instances
-apt-get install php7.1 php7.2 php7.0 php7.0-fpm php7.1-fpm php7.2-fpm php7.1-curl php7.2-mysql php7.0-mysql php7.1-mysql php-7.2-mysql php-sqlite3 php7.1-xml php7.1-zip  -y
+apt-get install php7.1 php7.2 php7.0 php7.0-fpm php7.1-fpm php7.2-fpm php 7.1-mysql php7.1-curl php7.2-mysql php7.0-mysql php7.1-mysql php-7.2-mysql php-sqlite3 php7.1-xml php7.1-zip php7.1-mbstring -y
 apt-get install nginx -y
 apt-get install mysql-server-5.7 mysql-workbench -y
 #---uncomment this line to install properly according to digital ocean
